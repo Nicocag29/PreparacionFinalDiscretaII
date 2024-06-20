@@ -1,0 +1,134 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[spanish]{babel}
+
+\usepackage{geometry}
+
+\newgeometry{vmargin={15mm}, hmargin={12mm,17mm}}
+
+\title{¿Cuál es la complejidad del algoritmo de Edmonds-Karp?}
+\author{Nicolás Cagliero}
+
+\begin{document}
+
+
+\maketitle
+\textbf{Teorema:} el algoritmo Edmonds-Karp termina siempre con complejidad $O(n \cdot m^{2}) $ \par 
+\
+
+\begin{proof}E-K constituye una sucesión de caminos aumentantes, Cada uno de ellos encontrado usando BFS, que es $O(m)$.\par
+
+\begin{center}
+	$\therefore$ Su complejidad es $O(m \cdot \#CaminosAumentante)$\par
+\end{center}
+\begin{center}
+	$\therefore$ Solo debemos probar que, en E-K, $\#CA = O(n \cdot m)$
+\end{center}
+\
+
+Definición: un lado es (o "se vuelve") crítico en un punto dado si es usado para construir el siguiente flujo en modo forward y se satura o en modo backward y se vacía.
+
+\begin{center}
+	¿Cuántas veces puede un lado volverse crítico?\par
+\end{center}
+
+Para calcular esto, veamos unas definiciones auxiliares:\par
+
+\begin{enumerate}
+\item dados vértices $x, z$ se define, dado un flujo $f$ en el network
+\[   
+d_f(x,z) = 
+     \begin{cases}
+       \text{$0,$} &\quad\text{si $x=z$}\\
+       \text{$\infty,$} &\quad\text{si no existe $f-CA$ desde $x$ a $z$}\\
+       \text{mínima longitud de un $f-CA$ desde $x$ a $z$,} &\quad\text{si existe}
+     \end{cases}
+\]
+
+\item Sean $f_0, f_1, f_2, ...$  los flujos que se van obteniendo en E-K:
+\begin{center}
+	$d_k(x) = d_{f_k}(s, x)$\par
+	$b_k(x) = d_{f_k}(x, t)$\par
+\end{center}
+
+\end{enumerate}
+\
+
+Prop:  $d_k(x) \le d_{k+1}(x)$\par
+\
+
+Prop:  $b_k(x) \le b_{k+1}(x)$\par
+\
+
+Sea $\overrightarrow{xy}$ un lado que se vuelve crítico en el paso $k$, hay $2$ casos:\par
+\begin{enumerate}
+	\item  \begin{center}
+			se saturó\par
+		 \end{center}
+	\item \begin{center}
+			se vació\par
+		\end{center}
+\end{enumerate}
+\begin{itemize}
+\item Caso en el cual el lado saturó:  es decir, $f_k(\overrightarrow{xy}) < c(\overrightarrow{xy})$ pero  $f_{k+1}(\overrightarrow{xy}) = c(\overrightarrow{xy})$\par
+$\therefore$ para pasar de $f_k$ a $f_{k+1}$ usamos un $f_k-CA$ de la forma $s...xy...t$\par
+Como estamos usando E-K, ese camino es de longitud mínima $\therefore d_k(y) = d_k(x) + 1$\par
+Supongamos que $\overrightarrow{xy}$ se vuelve crítico otra vez en un paso $j>k$\par
+	\begin{itemize}
+		\item Se vació, i.e, usamos $\overrightarrow{xy}$  backward en el paso $j$\par
+		\item Se saturó\par
+	\end{itemize}
+Como luego del paso $k$ ya estaba saturado, para poder volverse a saturar debemos haberle devuelto el flujo en algún paso $k < i < j$\par
+En cualquier caso, $\exists i: k < i \le j$ tal que $\overrightarrow{xy}$ se usa en forma backward, es decir, usamos un $f_i-CA$ de la forma $s...\overleftarrow{yx}...t$. Como E-K, este camino es de longitud mínima $\Rightarrow d_i(x) = d_i(y) + 1$\par
+Entonces $d_j(t) \ge d_i(t)$
+	\begin{center}
+		$d_i(t) = d_i(x) + b_i(x)$\par
+		$d_i(t) = d_i(y) + 1 + b_i(x)$\par
+		$d_i(t) \ge d_k(y) + 1 + b_k(x)$\par
+		$d_i(t) \ge d_k(x) + 1 + 1 + b_k(x)$\par
+		$d_i(t) \ge d_k(t) + 2$\par
+	\end{center}
+$\Rightarrow d_j(t) \ge d_k(t) + 2$ si $\overrightarrow{xy}$ se satura en el paso $k$\par
+
+\item Caso en el cual se vació: la próxima vez que se vuelva crítico será porque se saturó, o bien, se vació de vuelta $\therefore$ antes debo haberlo llenado un poco. En cualquier caso: $\exists i: k < i \le j$ tal que $\overrightarrow{xy}$ se usa en forma forward, es decir, usamos un $f_i-CA$ de la forma $s...\overrightarrow{xy}...t$. Como E-K, este camino es de longitud mínima. Luego $d_j(t) \ge d_i(t)$\par
+	\begin{center}
+		$d_i(t) = d_i(y) + b_i(y)$\par
+		$d_i(t) = d_i(x) + 1 + b_i(y)$\par
+		$d_i(t) \ge d_k(x) + 1 + b_k(y)$\par
+		$d_i(t) \ge d_k(y) + 1 + 1 + b_k(y)$\par
+		$d_i(t) \ge d_k(t) + 2$\par
+	\end{center}
+$\Rightarrow d_j(t) \ge d_k(t) + 2$ si $\overrightarrow{xy}$ se vacía en el paso $k$\par
+\
+\end{itemize}
+
+Conclusión: $d_j(t) \ge d_k(t) + 2$ en ambos casos\par
+\
+
+Es decir, cuando un lado se vuelve crítico, para que pueda volver a ser crítico, la distancia entre $s$ y $t$ debe aumentar en al menos $2$\par
+\
+
+Como la distancia entre puede variar entre $1$ y $n-1 \Rightarrow$ un lado puede volverse crítico a lo sumo $O(\frac{n}{2}) = O(n)$ veces\par
+\
+
+
+Resumen:\par
+\begin{center}
+\begin{itemize}
+
+\item cada CA vuelve crítico al menos un lado\par
+\item cada lado se vuelve crítico a los sumpo $O(n)$ veces\par
+\item hay $m$ lados\par
+
+\end{itemize}
+\end{center}
+
+$\Rightarrow$ hay $O(m \cdot n)$ caminos aumentantes.
+
+\end{proof}  
+
+\end{document}
+
