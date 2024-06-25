@@ -1,0 +1,46 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[spanish]{babel}
+
+\usepackage{geometry}
+\newtheorem{theorem}{Theorem}
+\newgeometry{vmargin={15mm}, hmargin={12mm,17mm}}
+
+\title{Demostración que 2-COLOR es polinomial}
+\author{Nicolás Cagliero}
+
+\begin{document}
+\maketitle
+\begin{theorem}\par
+\
+2-COLOR es polinomial\par
+\
+
+\end{theorem}
+
+\begin{proof}
+Para la demostración de este teorema, daremos un algoritmo que dado un grafo $G$ colorea en tiempo polinomial con $2$ colores y revisa si el coloreo es propio, y si no lo es, es porque el grafo tiene un ciclo impar. Esto último implicaría que el número crómatico es mayor o igual a $3$. Para este algoritmo se asume que $G$ es conexo pero en caso que no lo sea, simplemente se corre el algoritmo en todas sus componentes.\par
+\
+
+El algoritmo arranca en un vértice arbitrario $x$ coloreandoló con el color $0$. Corremos BFS a partir de $x$ coloreando a cada vértice de la forma $c(z) = Nivel_{BFS}(z)$ $mod$ $2$. Esto nos dará un coloreo con 2 colores, pero no está garantizado que sea propio.\par
+\
+
+Ahora debemos revisar que el coloreo sea propio. Si lo es, $\chi(G) = 2$. Si no lo es $\Rightarrow$ existen $u, v$ tal que $c(u) = c(v)$ y además $uv \in E$\par
+\
+
+De esta forma sabemos que $Nivel_{BFS}(u)$ $mod$ $2$ = $Nivel_{BFS}(v)$ $mod$ $2 \therefore$ tienen la misma paridad. \par
+\
+
+$\exists$ un camino de la forma $x...u$\par
+$\exists$ un camino de la forma $x...v$\par
+$\exists$ un vértice $w$ a partir del cual se separan.\par
+Como $uv \in E \Rightarrow$ existe un camino de la forma $w...uv...w$. Veamos la cantidad de lados que hay en ese camino. El lado $uv$ suma $1$ y podemos ver que $Nivel_{BFS}(u) - Nivel_{BFS}(w)$ y $Nivel_{BFS}(v) - Nivel_{BFS}(w)$ tienen la misma paridad. Luego, hay cantidad impar de lados $\Rightarrow$ tenemos un ciclo impar en $G$.\par
+\
+
+Este algoritmo primero recorre todo el grafo con BFS coloreando cada vértice. Correr BFS es $O(m)$ y colorear cada vértice es $O(1)$. Luego revisamos si es propio, lo cual es $\sum O(d(x)) = O(m)$. Luego la complejidad total es $O(m) +O(m) = O(m)$
+\end{proof}
+
+\end{document}
