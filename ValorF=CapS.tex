@@ -1,0 +1,56 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[spanish]{babel}
+
+\usepackage{geometry}
+\newtheorem{theorem}{Theorem}
+\newgeometry{vmargin={15mm}, hmargin={12mm,17mm}}
+
+\title{Demostración que el valor de todo flujo es menor que la capacidad de todo corte y que si $f$ es flujo, entonces es flujo maximal si y solo si existe un corte $S$ tal que $v(f) = cap(S)$ (y $S$ es minimal)}
+\author{Nicolás Cagliero}
+
+\begin{document}
+\maketitle
+\begin{theorem}\par
+\
+
+El valor de todo flujo es menor que la capacidad de todo corte y si $f$ es flujo, entonces es flujo maximal si y solo si existe un corte $S$ tal que $v(f) = cap(S)$ (y $S$ es minimal).
+\end{theorem}
+
+\begin{proof}
+Sabemos que $v(f) = f(S, \overline{S}) - f(\overline{S}, S) \le f(S, \overline{S}) \le c(S, \overline{S}) = cap(S, \overline{S})$\par
+\
+
+Aclaración: el primer $\le$ es pues \[f(\overline{S}, S) = \sum_{\substack{x \notin S \\ y \in S \\ \overrightarrow{xy} \in E}} f(\overrightarrow{xy}) \ge 0 \text{ pues } f(\overrightarrow{xy}) \ge 0, \forall \overrightarrow{xy} \in E\]\par
+Aclaración: el segundo $\le$ es pues  \[f(S, \overline{S}) = \sum_{\substack{x \in S \\ y \notin S \\ \overrightarrow{xy} \in E}} f(\overrightarrow{xy}) \le c(S, \overline{S}) \text{ pues } f(\overrightarrow{xy}) \le c(\overrightarrow{xy}), \forall \overrightarrow{xy} \in E\]\par
+\
+
+Ahora analicemos la vuelta del "si y solo si". Sea $f$ flujo, $S$ corte tal que $v(f) = cap(S)$. Sea $g$ otro flujo, por lo que ya vimos $v(g) \le cap(S) = v(f) \Rightarrow f $ es maximal. Y sea $T$ corte, $cap(T) \ge v(f) = cap(S) \Rightarrow S$ es minimal.\par
+\
+
+Ahora veamos la ida, es decir, asumamos $f$ maximal. Ahora construiremos un corte $S$ a partir de $f$ y vamos a ver que $v(f) = cap(S)$. Sea \[ S = \{s\} \cup \{x \in V: \text{existe un $f-CA$ entre $s$ y $x$}\} \]\par
+\
+
+Primero veamos que en efecto $S$ sea corte, supongamos que no $\therefore t \in S$. Esto es absurdo pues existiría un camino aumentante y se podría aumentar el flujo lo cual es absurdo pues $f$ es maximal.\par
+\
+
+Una vez visto esto, veamos que se cumple la implicación. Sabemos que $v(f) = f(S, \overline{S}) - f(\overline{S}, S)$ \par
+\
+
+Analicemos \[f(S, \overline{S}) = \sum_{\substack{x \in S \\ y \notin S \\ \overrightarrow{xy} \in E}} f(\overrightarrow{xy}) \]\par
+Como $y \notin S \Rightarrow f(\overrightarrow{xy}) = c(\overrightarrow{xy})$ pues no existe camino aumentante entre $s$ e $y$\par
+\[ \Rightarrow f(S, \overline{S}) = \sum_{\substack{x \in S \\ y \notin S \\ \overrightarrow{xy} \in E}} f(\overrightarrow{xy})  = c(S, \overline{S})\]\par
+\
+
+Ahora analicemos  \[f(\overline{S}, S) = \sum_{\substack{w \notin S \\ x \in S \\ \overrightarrow{wx} \in E}} f(\overrightarrow{wx}) \]\par
+Como $w \notin S \Rightarrow  f(\overrightarrow{wx}) = 0$ porque sino podría devolver flujo desde $x$ en un camino aumentante que sabemos que existe pues $x \in S$\par
+\[ \Rightarrow f(\overline{S}, S) = \sum_{\substack{w \notin S \\ x \in S \\ \overrightarrow{wx} \in E}} f(\overrightarrow{wx}) = 0 \]\par
+\
+
+Luego, $v(f) = f(S, \overline{S}) - f(\overline{S}, S) = c(S, \overline{S}) - 0 = c(S, \overline{S}) = cap(S, \overline{S}) $  
+\end{proof}
+
+\end{document}
