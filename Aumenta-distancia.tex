@@ -1,0 +1,82 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[spanish]{babel}
+
+\usepackage{geometry}
+\newtheorem{theorem}{Theorem}
+\newgeometry{vmargin={15mm}, hmargin={12mm,17mm}}
+
+\title{Demostración las distancias aumentan}
+\author{Nicolás Cagliero}
+
+\begin{document}
+\maketitle
+\begin{theorem}\par
+\
+
+\begin{enumerate}
+\item Dados vértices $x, z$ se define, dado un flujo $f$ en el network
+\[   
+d_f(x,z) = 
+     \begin{cases}
+       \text{\(0\)}, &\quad\text{si \(x=z\)}\\
+       \text{\(\infty\)}, &\quad\text{si no existe \(f-CA\) desde \(x\) a \(z\)}\\
+       \text{mínima longitud de un \(f-CA\) desde \(x\) a \(z\)}, &\quad\text{si existe}
+     \end{cases}
+\]
+
+\item Sean $f_0, f_1, f_2, ...$  los flujos que se van obteniendo en E-K:
+\begin{center}
+	$d_k(x) = d_{f_k}(s, x)$\par
+\end{center}
+\
+
+Entonces $d_k(x) \le d_{k+1}(x)$\par
+\
+
+\end{enumerate}
+
+\end{theorem}
+
+\begin{proof}
+Esta será una idea de la demostración y sus partes, los detalles y ciertas cuentas no serán escritas.\par
+\
+
+Sea $A = \{x : d_{k+1}(x) < d_k(x)\}$, vamos a querer que $A = \emptyset$. Supongamos que no, es decir, tomemos un $x \in  A$ y además le vamos a pedir que sea tal que $d_{k+1}(x) = min\{d_{k+1}(y) : y\in A \}$\par
+\
+
+Acá ya podemos ver que $d_{k+1}(x) < d_k(x) \le \infty \Rightarrow$ existe un $f_{k+1}-CA$ entre $s$ y $x$. Y además es obvio ver que $x \ne s$.\par
+\
+
+De esta forma, sabemos que existe un $z$ inmediatamente anterior a $x$ tal que el $f_{k+1}-CA$ es de la forma $P_{k+1} = s...zx$. Y como estamos corriendo E-K, $P_{k+1}$ es de longitud mínima.\par
+\begin{center}
+$\Rightarrow d_{k+1}(x) = d_{k+1}(z) + 1$
+\end{center} \par 
+\
+
+De esta forma, sabemos que $\overrightarrow{zx}$ o $ \overrightarrow{xz}$.\par
+\
+
+\begin{enumerate}
+\item Caso  $\overrightarrow{zx}$\par
+Notar ahora que $d_{k+1}(z) < d_{k+1}(x) \Rightarrow z \notin A \Rightarrow d_k(z) \le d_{k+1}(z) < d_{k+1}(x) < \infty$. Luego, exite un $f_k -CA$ entre $s$ y $z$. Acá nos preguntamos, puedo agregar a $x$ al final de ese $f_k - CA$ dado que  $\overrightarrow{xz}$ es un lado. Si lo hacemos, dado que estamos corriendo E-K y los caminos aumentantes son de longitud mínima vamos a llegar a un absurdo contradiciendo la suposición que $x \in A$. Entonces si no lo podemos agregar forward al $x$, significa que $ \overrightarrow{xz}$ está saturado en el flujo $k$, pero ya vimos que $P_{k+1}$ es un $f_{k+1}-CA \Rightarrow$ para pasar de $f_k$ a $f_{k+1}$, el lado se usó y se usó backward $\Rightarrow P'_k = s...\overleftarrow{xz} $\par
+\
+
+Como es de longitud mínima, $d_k(z) = d_k(x) + 1 > d_{k+1}(x) + 1 = d_{k+1}(z) + 1 + 1 \ge d_k(z) + 2 \Rightarrow d_k(z) > d_k(z) + 2 \Rightarrow 0 > 2$. ABSURDO. \par
+\
+
+\item Caso $\overrightarrow{xy}$\par
+Muy parecido al caso anterior, vamos a llegar que existe un $f_k-CA$ entre $s$ y $z$ y al querer agregar a $x$ backward llegaríamos a una contradicción y vamos a tener que agregar ese lado forward obteniendo las mismas ecuaciones que en el caso anterior y llegando al absurdo de $0>2$.\par
+\
+
+\end{enumerate}\par
+\
+
+De esta forma se llega a un absurdo de suponer que $A \ne \emptyset \Rightarrow A = \emptyset$ y el teorema queda demostrado.
+
+\end{proof}
+
+\end{document}
