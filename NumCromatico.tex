@@ -1,0 +1,29 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[spanish]{babel}
+
+\usepackage{geometry}
+\newtheorem{theorem}{Theorem}
+\newgeometry{vmargin={15mm}, hmargin={12mm,17mm}}
+
+\title{Demostración que dado un grafo conexo no regular $G$, entonces $\chi(G) \le \Delta(G)$}
+\author{Nicolás Cagliero}
+
+\begin{document}
+\maketitle
+\begin{theorem}\par
+\
+Sea $G$ un grafo conexo no regular, entonces $\chi(G) \le \Delta (G)$\par
+\
+
+\end{theorem}
+
+\begin{proof}
+Sea $x: \delta (x) = \delta$. Corramos BFS a partir de $x$. Como $G$ es conexo, todos los vértices de $G$ van a ser alcanzados y en particular, todo vértice que fue alcanzado es porque tiene un vecino anterior que lo agregó. Ahora vamos a querer correr Greedy pero utilizando el orden inverso al que obtuvimos corriendo BFS. De este modo, tendremos a $x$ como el último vértice en colorearse y todo vértice tendrá por lo menos un vecino posterior. Veamos que pasa cuando quiero colorear un vértice $z \ne x$, Greedy lo que va a hacer es eliminar a lo sumo $\delta(z) - 1 \le \Delta - 1$ colores, luego, podrá colorear con algún color $ \in \{1 ... \Delta\}$. Al colorear $x$, va a eliminar $\delta < \Delta$ colores $\Rightarrow$ puede usar algún color $ \in \{1 ... \Delta\}$.
+
+\end{proof}
+
+\end{document}
