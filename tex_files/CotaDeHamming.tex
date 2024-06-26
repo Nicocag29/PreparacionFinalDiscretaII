@@ -1,0 +1,52 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[spanish]{babel}
+
+\usepackage{geometry}
+\newtheorem{theorem}{Theorem}
+\newgeometry{vmargin={15mm}, hmargin={12mm,17mm}}
+
+\title{Demostración del Teorema de la cota de Hamming}
+\author{Nicolás Cagliero}
+
+\begin{document}
+\maketitle
+\begin{theorem}\par
+\
+Sea $C \subseteq \{0, 1\}^{2}$ un código binario de longitud $n$. Sea $\delta = \delta(C)$ y $t = \lfloor \frac{\delta - 1}{2} \rfloor$. Entonces \[|C| \le \frac{2^{n}}{1 + n + \binom{n}{2} + ... + \binom{n}{t}}\]
+\
+
+\end{theorem}
+
+\begin{proof} Sea \[A = \bigcup_{v \in C} D_t(v)\] \par
+\
+
+Como $t = \lfloor \frac{\delta - 1}{2} \rfloor$, $C$ corrige $t$ errores $\Rightarrow D_t(v) \cap D_t(w) = \emptyset$ para cualquier palabra de $C$. Luego, la unión de $A$ es disjunta \[\Rightarrow |A| = \sum_{v \in C} |D_t(v)|\]\par
+\
+
+Sean $S_r(v) = \{w \in \{0, 1\}^{2} : d_H(v, w) = r \} $\par
+\
+
+\[\Rightarrow |D_t(v)| = \sum_{r = 0}^{t} |S_r(v)|\]\par
+\
+
+Ahora queda ver cuánto vale $|S_r(v)|$. Notar que si $w \in S_r(v)$, entonces $w$ difiere en exactamente $r$ bits de $v$. Tenemos una biyección entonces entre $S_r(v)$ y el conjunto de subconjuntos de $r$ bits de los $n$ bits posibles. Luego $|S_r(v)| = \binom{n}{r}$.\par
+\
+
+\[\Rightarrow |D_t(v)| = \sum_{r = 0}^{t} |S_r(v)| = \sum_{r = 0}^{t} \binom{n}{r}\]\par
+\
+
+\[\Rightarrow |A| = \sum_{v \in C} |D_t(v)| = \sum_{v \in C}(\sum_{r = 0}^{t} \binom{n}{r}) = \sum_{r = 0}^{t} \binom{n}{r} \cdot |C|\]\par
+\
+
+Por lo tanto \[|C| = \frac{|A|}{\displaystyle\sum_{r = 0}^{t} \binom{n}{r}}\]\par
+\
+
+Como $A \subseteq \{0, 1\}^{2} \Rightarrow |A| \le 2^{n}$ \[\Rightarrow |C| \le \frac{2^{n}}{\displaystyle\sum_{r = 0}^{t} \binom{n}{r}}\]
+
+\end{proof}
+
+\end{document}
