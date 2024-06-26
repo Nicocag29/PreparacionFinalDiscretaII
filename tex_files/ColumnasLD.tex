@@ -1,0 +1,45 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[spanish]{babel}
+
+\usepackage{geometry}
+\newtheorem{theorem}{Theorem}
+\newgeometry{vmargin={15mm}, hmargin={12mm,17mm}}
+
+\title{Demostración de $\delta(C)$ coincide con el mínimo de columnas LD de la matriz de chequeo de $C$}
+\author{Nicolás Cagliero}
+
+\begin{document}
+\maketitle
+\begin{theorem} Sea $H$ la matriz de chequeo de $C$, entonces $\delta(C) = Min\{j: \exists \text{un conjunto de $j$ columnas LD de $H$}\}$\par
+\
+
+\end{theorem}
+
+\begin{proof} Sea $m =$ mínimo número de columnas LD de $H$, $\delta = \delta(C)$. Como $C$ es lineal, $\delta = min\{|x|, x \in C, x \ne 0 \}$\par
+\
+
+Sea $x \in C, x \ne 0$ con $|x| = \delta$.\par
+\
+
+Como $|x| = \delta \Rightarrow x$ tiene $\delta$  $1's$. \par
+\
+
+$\Rightarrow \exists i_1, i_2, ..., i_{\delta}: x = e_{i_1} + ... + e_{i_{\delta}}$\par
+\
+
+Como $x \in C$ y $C = Nu(H) \Rightarrow Hx^{t} = 0 \Rightarrow 0 = H^{i_1} + ... + H^{i_{\delta}}$. De esta forma ya tenemos un conjunto de $\delta$ columnas LD $\Rightarrow m \le \delta$\par
+\
+
+Sean $H^{j_1} + ... + H^{j_{m}}$  $m$ columnas LD. Sea $x = e_{j_1} + ... + e_{j_m} \Rightarrow Hx^t = 0 \Rightarrow x \in Nu(H) = C$. De esta forma $\delta \le |x| = m$ \par
+\
+
+Luego $m = \delta$
+
+
+\end{proof}
+
+\end{document}
