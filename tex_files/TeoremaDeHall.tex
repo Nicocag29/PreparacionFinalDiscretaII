@@ -1,0 +1,56 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[spanish]{babel}
+
+\usepackage{geometry}
+\newtheorem{theorem}{Theorem}
+\newgeometry{vmargin={15mm}, hmargin={12mm,17mm}}
+
+\title{Demostración del Teorema de Hall}
+\author{Nicolás Cagliero}
+
+\begin{document}
+\maketitle
+\begin{theorem}\par
+\
+Sea $G$ un grafo bipartito con partes $X$ e $Y$. Existe un matching ``completo de $X$ a $Y$`` si y solo si $|\Gamma(S)| \ge |S|$ $\forall S \subseteq X$\par
+\
+
+\end{theorem}
+
+\begin{proof} \par
+\
+
+$(\Rightarrow)$: es obvia pues si existe tal matching, él mismo induce una función inyectiva $f: X \rightarrow Y$ tal que $f(x) \in \Gamma(x)$. Al ser inyectiva, $|f(S)| = |S|$ $\forall S \subseteq X$.\par
+\
+
+Luego $|\Gamma(S)| \ge |S|$\par
+\
+
+$(\Leftarrow)$: ahora asumamos la condición de Hall pero que al correr el algoritmo para hallar matching maximal, nos quedmaos con uno tal que $|E(M)| < |X|$. A partir de este vamos a construir un $S$ tal que no se cumpla la condición de Hall y llegamos al absurdo.\par
+\
+
+Para construir este $S$ vamos a correr el algoritmo para extender el matching a partir del $M$ que obtuvimos. Notar que tiene filas sin matchear $\therefore$ tendremos por lo menos una fila etiquetadas con $*$. Sea \[S = \{\text{Filas etiquetadas}\}\] \[T = \{\text{Columnas etiquetadas}\}\]
+
+En $S_0$ irán las filas etiquetadas con $*$. Notar que este conjunto no es vacío. Luego cada $T_i$ tendrá las columnas que haya etiquetado $S_{i-1}$ y cada $S_j$ tendrá las filas agregadas por $T_j$ ($\Rightarrow |S_j| = |T_j|$). Notar que el algoritmo no va a terminar pasando de un $T_j$ a un $S_j$ pues eso significaría que el matching se puede extender (pues al revisar una columna no hay una fila matcheada pero por hipótesis este no será nuestro caso). Entonces sabemos que el algoritmo termina pasando de un $S_j$ a un $T_{j+1} = \emptyset$. Entonces obtenemos \[|S| = |S_0| + ... + |S_k| \text{ pues $S$ es la unión de los $S_i$ los cuales son disjuntos}\] \[|S| = |S_0| + |T_1| + ... + |T_k|\] \[|S| = |S_0| + |T| \text{ pues $T$ es la unión de los $T_i$ los cuales son disjuntos}\] \[|S| < |T|\]
+\
+
+\
+
+Ahora debemos ver que $T = \Gamma(S)$ y ya está.\par
+\
+
+Sea $y \in T$, esto quiere decir que $y$ fue agregado por un $x \in S$ por la forma en la que construimos $T$. Si fue agregado por un $x \in S \Rightarrow y \in \Gamma(x) \Rightarrow y \in \Gamma(S)$ \par
+\
+
+Sea $y \in \Gamma(S)$, pero $y \notin T$. Esto es obvio un absurdo pues si $y \in \Gamma(S) \Rightarrow \exists x \in S$ tal que $y \in \Gamma(x)$ por lo tanto $y$ si o si se tuvo que haber agregado a $T$ cuando se escaneó a $x$.\par
+\
+
+De la doble inclusión llegamos a la igualdad y al absurdo de suponer que al correr el algoritmo de matching maximal, nos quedamos con uno no ``completo de $X$ a $Y$``.
+
+\end{proof}
+
+\end{document}
