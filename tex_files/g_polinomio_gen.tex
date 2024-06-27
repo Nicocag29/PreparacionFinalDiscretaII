@@ -1,0 +1,92 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[spanish]{babel}
+
+\usepackage{geometry}
+\newtheorem{theorem}{Theorem}
+\newgeometry{vmargin={15mm}, hmargin={12mm,17mm}}
+
+\title{Demostración de las $4$ equivalencias que se dan a partir de $g(x)$ polinomio generador de un código $C$ }
+\author{Nicolás Cagliero}
+
+\begin{document}
+\maketitle
+\begin{theorem} Sea $C$ un código cíclico de dimensión $k$ y longitud $n$ y sea $g(x)$ su polinomio generador. Probar que: 
+\begin{enumerate}
+\item $C$ está formado por los múltiplos de $g(x)$ de grado menor que $n$:  $C = \{p(x): gr(p) < n \text{ } \& \text{ }  g(x)|p(x)\} $
+\
+
+\item  $C = \{v(x) \odot g(x):  \text{$v$ es un polinomio cualquiera} \}$ 
+\
+
+\item $gr(g(x)) = n - k$
+\
+
+\item $g(x)$ divide a $1 + x^{n}$
+\end{enumerate}
+\end{theorem}
+
+\begin{proof} \par
+\
+
+Sea $C_1 =  \{p(x): gr(p) < n \text{ } \& \text{ }  g(x)|p(x)\}$
+\
+
+Sea $C_2 = \{v(x) \odot g(x):  \text{$v$ es un polinomio cualquiera} \}$\par
+\
+
+Vamos a ver que $C = C_1$ y $C = C_2$ para demostrar los dos primeros items.\par
+\
+
+\begin{enumerate}
+\item $C_1 \subseteq C_2$. Sea $p(x) \in C_1 \Rightarrow gr(p(x)) < n \text{ } \& \text{ } g(x) | p(x)$. Luego $\exists q(x): p(x) = g(x)\cdot q(x)$ y además $p(x) mod (1 + x^{n}) = p(x)$. De esta forma obtenemos que  $p(x) mod (1 + x^{n}) =  (g(x)\cdot q(x)) mod (1 + x^{n}) \Rightarrow p(x) = g(x) \odot q(x) \in C_2 $\par
+\
+
+\item $C_2 \subseteq C$. Sea  $p(x) = g(x) \odot v(x) =  v(x) \odot g(x)$ con algún $v(x)$\par
+\
+\begin{align*}
+\Rightarrow p(x) & = (v_0 + v_1x + ... v_dx^{d}) \odot g(x) \\
+			 & = v_0 \text{ } mod \text{ } g(x) + ... + (v_dx^{d}) \text{ } mod \text{ } g(x)\\
+			 & = v_0 \text{ } mod \text{ } g(x) + ... + v_d(x^{d} \text{ } mod \text{ } g(x))\\
+			 & = v_0 \cdot g(x) + ... + v_d \cdot Rot^{d}(g(x))\\
+			 & \text{Como todas las componentes pertenecen a } C \Rightarrow p(x) \in C\\
+\end{align*}
+
+\item $C \subseteq C_1$. Sea $p(x) \in C \Rightarrow gr(p(x)) < n$. Ahora dividamos $p(x)$ por $g(x)$. Existe $q(x), r(x): p(x) = q(x) \cdot g(x) + r(x)$ con $gr(r) < gr(g)$\par
+\
+
+Tomando módulo: \[ p(x) \text{ } mod \text{ } (1 + x^{n}) =  (q(x) \cdot g(x) + r(x)) \text{ }  mod \text{ } (1 + x^{n}) \] \[ p(x) = g(x) \odot q(x) + r(x)\] \[ \Rightarrow r(x) = p(x) +  g(x) \odot q(x) \in C\] \par
+\
+
+Pero $r(x) \in C$ y además $gr(r) < gr(g) \Rightarrow r = 0 \Rightarrow p(x) = q(x) \cdot g(x) \in C_1$
+
+\end{enumerate}
+
+Ahora demuestro el tercer ítem. Como vimos que $C = C_1$, sabemos que $p(x) \in C \iff gr(p) < n \text{ } \& \text{ } \exists q: p = qg$.\par
+\
+
+Como $gr(p)$ debe ser menor estricto que $n \rightarrow gr(g) + gr(q) < n \Rightarrow gr(q) < n - gr(g)$ \par
+\
+
+Viceversa, si tomo un $q(x)$ cualquiera con $gr(q) < n - gr(g)$ Entonces $gr(gq) < n \therefore gq \in C \therefore$ existe una bitección entre $C$ y el conjunto de polinomios de grado menor que $n - gr(g)$\par
+\
+
+$\Rightarrow |C| = |\text{conjunto de polinomios de grado } < n - gr(g)|$\par
+\
+
+$\Rightarrow 2^{k} = 2^{n -gr(g)}$\par
+\
+
+$\Rightarrow k = n - gr(g) \Rightarrow gr(g) = n - k$\par
+\
+
+Por último, veamos el cuarto ítem, dividamos $1 + x^{n}$ por $g(x)$. Existe $q(x), r(x)$ con $gr(r) < gr(g): 1 + x^{n} = g(x) \cdot q(x) + r(x)$. Tomando módulo $0 = g(x) \odot q(x) + r(x) \Rightarrow r(x) = g(x) \odot g(x) \in C$.\par
+\
+
+Por lo mismo que antes, $r(x) \in C$ y además $gr(r) < gr(g) \Rightarrow r = 0 \Rightarrow g(x)$ divide a $1 + x^{n}$
+\end{proof}
+
+\end{document}
