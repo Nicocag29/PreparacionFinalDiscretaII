@@ -49,8 +49,8 @@ Vamos a ver que $C = C_1$ y $C = C_2$ para demostrar los dos primeros items.\par
 \
 \begin{align*}
 \Rightarrow p(x) & = (v_0 + v_1x + ... v_dx^{d}) \odot g(x) \\
-			 & = v_0 \text{ } mod \text{ } g(x) + ... + (v_dx^{d}) \text{ } mod \text{ } g(x)\\
-			 & = v_0 \text{ } mod \text{ } g(x) + ... + v_d(x^{d} \text{ } mod \text{ } g(x))\\
+			 & = v_0 \odot g(x) + ... + (v_dx^{d}) \odot g(x)\\
+			 & = v_0 \odot g(x) + ... + v_d(x^{d} \odot g(x))\\
 			 & = v_0 \cdot g(x) + ... + v_d \cdot Rot^{d}(g(x))\\
 			 & \text{Como todas las componentes pertenecen a } C \Rightarrow p(x) \in C\\
 \end{align*}
