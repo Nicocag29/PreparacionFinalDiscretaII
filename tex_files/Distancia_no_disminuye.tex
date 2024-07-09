@@ -62,15 +62,32 @@ De esta forma, sabemos que $\overrightarrow{zx}$ o $ \overrightarrow{xz}$.\par
 
 \begin{enumerate}
 \item Caso  $\overrightarrow{zx}$\par
-Notar ahora que $d_{k+1}(z) < d_{k+1}(x) \Rightarrow z \notin A \Rightarrow d_k(z) \le d_{k+1}(z) < d_{k+1}(x) < \infty$. Luego, exite un $f_k -CA$ entre $s$ y $z$. Acá nos preguntamos, puedo agregar a $x$ al final de ese $f_k - CA$ dado que  $\overrightarrow{xz}$ es un lado. Si lo hacemos, dado que estamos corriendo E-K y los caminos aumentantes son de longitud mínima vamos a llegar a un absurdo contradiciendo la suposición que $x \in A$. Entonces si no lo podemos agregar forward al $x$, significa que $ \overrightarrow{xz}$ está saturado en el flujo $k$, pero ya vimos que $P_{k+1}$ es un $f_{k+1}-CA \Rightarrow$ para pasar de $f_k$ a $f_{k+1}$, el lado se usó y se usó backward $\Rightarrow P'_k = s...\overleftarrow{xz} $\par
+Notar ahora que $d_{k+1}(z) < d_{k+1}(x) \Rightarrow z \notin A \Rightarrow d_k(z) \le d_{k+1}(z) < d_{k+1}(x) < \infty$. Luego, exite un $f_k -CA$ entre $s$ y $z$. Acá nos preguntamos, puedo agregar a $x$ al final de ese $f_k - CA$ dado que  $\overrightarrow{zx}$ es un lado. Si lo hacemos, dado que estamos corriendo E-K y los caminos aumentantes son de longitud mínima $\Rightarrow d_k(x) = d_k(z) + 1 \le d_{k+1}(z) + 1 = d_{k+1}(x)$. De esta forma llegamos al absurdo pues $x \in A$.\par
 \
 
-Como es de longitud mínima, $d_k(z) = d_k(x) + 1 > d_{k+1}(x) + 1 = d_{k+1}(z) + 1 + 1 \ge d_k(z) + 2 \Rightarrow d_k(z) > d_k(z) + 2 \Rightarrow 0 > 2$. ABSURDO. \par
+Entonces si no lo podemos agregar forward al $x$, significa que $ \overrightarrow{zx}$ está saturado en el flujo $k$, pero ya vimos que $P_{k+1}$ es un $f_{k+1}-CA \Rightarrow$ para pasar de $f_k$ a $f_{k+1}$, el lado se usó y se usó backward $\Rightarrow P'_k = s...\overleftarrow{xz} $\par
 \
 
-\item Caso $\overrightarrow{xy}$\par
-Muy parecido al caso anterior, vamos a llegar que existe un $f_k-CA$ entre $s$ y $z$ y al querer agregar a $x$ backward llegaríamos a una contradicción y vamos a tener que agregar ese lado forward obteniendo las mismas ecuaciones que en el caso anterior y llegando al absurdo de $0>2$.\par
+Como es de longitud mínima, 
+\begin{align*}
+d_k(z) & = d_k(x) + 1 \\
+	   & > d_{k+1}(x) +1 = d_{k+1}(z) + 1 + 1 \ge d_k(z) + 2\\
+	   & > d_k(z) + 2 \\
+\end{align*}
+
+$ \Rightarrow 0 > 2$. ABSURDO. \par
 \
+
+\item Caso $\overrightarrow{xz}$\par
+Muy parecido al caso anterior, vamos a llegar que existe un $f_k-CA$ entre $s$ y $z$ y al querer agregar a $x$ backward llegaríamos a una contradicción, lo que nos dice que $f_k(\overrightarrow{xz}) = 0$ y como sabemos que $P_{k+1}$ es un $f_{k+1} - CA$ vamos a tener que haber usado ese lado forward de forma tal que el lado se sature un poco. De esta forma terminamos obteniendo las mismas ecuaciones que en el caso anterior y llegando al absurdo de $0>2$.\par
+\
+\begin{align*}
+d_k(z) & = d_k(x) + 1 \\
+	   & > d_{k+1}(x) +1 = d_{k+1}(z) + 1 + 1 \ge d_k(z) + 2\\
+	   & > d_k(z) + 2 \\
+\end{align*}
+
+
 
 \end{enumerate}\par
 \
